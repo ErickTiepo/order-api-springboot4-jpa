@@ -2,6 +2,7 @@ package com.erick.order_api.entities;
 
 import com.erick.order_api.entities.pk.OrderItemPk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrderItemPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
     private Double price;
@@ -31,6 +32,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
@@ -39,8 +41,8 @@ public class OrderItem implements Serializable {
         id.setOrder(order);
     }
 
-    public Order getProduct() {
-        return id.getOrder();
+    public Product getProduct() {
+        return id.getProduct();
     }
 
     public void setProduct(Product product) {
