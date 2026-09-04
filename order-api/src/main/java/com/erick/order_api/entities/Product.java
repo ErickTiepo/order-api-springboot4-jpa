@@ -14,25 +14,27 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
     private String description;
-    private Double price;
     private String imgUrl;
+    private String name;
+    private Double price;
 
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "Product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
     public Product() {
 
     }
 
-    public Product(Long id, String imgUrl, String description, Double price, String name) {
+    public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
-        this.imgUrl = imgUrl;
+        this.name = name;
         this.description = description;
         this.price = price;
-        this.name = name;
+        this.imgUrl = imgUrl;
     }
+
 
     public String getDescription() {
         return description;
